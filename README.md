@@ -1,50 +1,120 @@
-# Welcome to your Expo app 👋
+# 🌌 Cosmic Gallery
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Cosmic Gallery** is a mobile application that brings the wonders of space directly to your Android device. Every day, discover stunning astronomical imagery from NASA's Astronomy Picture of the Day (APOD) collection, save your favorites to your gallery, and transform your phone's wallpaper into a breathtaking cosmic masterpiece.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+- 📸 **Daily Space Photos** - Automatically fetches NASA's Astronomy Picture of the Day
+- 💾 **Save to Gallery** - Download high-resolution images directly to your device
+- 🖼️ **Wallpaper Integration** - Set cosmic images as your phone wallpaper with a single tap
+- 📚 **History Gallery** - Browse through previously viewed APOD images in a beautiful grid layout
+- 🌙 **Dark Theme** - Optimized dark interface that complements astronomical imagery
+- 🎨 **Responsive Design** - Seamless experience across different screen sizes
 
+## 🚀 How It Works
+
+1. **Fetch** - The app connects to NASA's APOD API to retrieve the astronomical picture of the day
+2. **Display** - View stunning space photography with detailed descriptions and metadata
+3. **Save** - Download images directly to your device's gallery for offline access
+4. **Customize** - Set any saved image as your phone's wallpaper through the system dialog
+
+## 📱 Technology Stack
+
+- **Framework**: React Native with Expo
+- **Language**: TypeScript
+- **Routing**: Expo Router (file-based navigation)
+- **API**: NASA APOD API
+- **Storage**: AsyncStorage for image history
+- **File Management**: expo-file-system for downloads
+- **UI**: Custom components with responsive design
+
+## 🛠️ Installation
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- Android Studio (for Android development)
+- EAS CLI (for production builds)
+
+### Setup
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/cosmic-gallery-app.git
+   cd cosmic-gallery-app
+   ```
+
+2. Install dependencies
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the development server
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+4. Run on Android
+   ```bash
+   npm run android
+   ```
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📦 Building for Production
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Create APK/AAB for Google Play Store
 
 ```bash
-npm run reset-project
+# Build production APK
+eas build --platform android --profile preview
+
+# Build production AAB (for Play Store submission)
+eas build --platform android --profile production
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🎨 Project Structure
 
-## Learn more
+```
+cosmic-gallery/
+├── app/                    # Expo Router pages
+│   ├── (tabs)/            # Tab navigation
+│   │   ├── index.tsx      # Main home screen
+│   │   └── _layout.tsx    # Tab layout configuration
+│   ├── _layout.tsx        # Root layout
+│   └── modal.tsx          # Modal screens
+├── src/
+│   ├── components/        # React components
+│   │   ├── APODCard.tsx   # Main photo display component
+│   │   └── APODGallery.tsx # History gallery component
+│   ├── hooks/             # Custom React hooks
+│   │   └── useAPOD.ts     # APOD data fetching hook
+│   ├── services/          # API and storage services
+│   │   ├── apodService.ts # NASA APOD API integration
+│   │   └── historyService.ts # AsyncStorage management
+│   └── utils/             # Utility functions
+├── assets/                # Images, icons, fonts
+└── app.json              # Expo configuration
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🌐 API Reference
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This app uses NASA's official APOD API:
+- **Endpoint**: `https://api.nasa.gov/planetary/apod`
+- **Documentation**: [NASA APOD API Docs](https://api.nasa.gov/)
 
-## Join the community
+## 📄 License
 
-Join our community of developers creating universal apps.
+This project is open source and available under the MIT License.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🙏 Acknowledgments
+
+- **NASA** for providing the incredible APOD API and astronomical imagery
+- **Expo** for the amazing React Native framework
+- All the astronomers and astrophotographers whose work is featured
+
+## 📞 Contact
+
+For questions or feedback, please open an issue on GitHub.
+
+---
+
+**Made with ❤️ and ✨ by exploring the cosmos, one photo at a time.**

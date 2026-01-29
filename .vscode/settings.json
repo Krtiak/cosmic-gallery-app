@@ -3,5 +3,10 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "typescript.tsserver.skipLibCheck": true,
+  "problems.exclude": {
+    "**/node_modules/**": true
+  },
+  "java.jdt.ls.java.home": "C:\\Program Files\\Android\\Android Studio\\jbr"
 }
