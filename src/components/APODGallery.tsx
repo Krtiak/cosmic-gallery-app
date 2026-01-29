@@ -1,7 +1,6 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   ActivityIndicator,
-  Dimensions,
   FlatList,
   Image,
   Modal,
@@ -24,10 +23,6 @@ interface APODGalleryProps {
   loading?: boolean;
 }
 
-const screenWidth = Dimensions.get('window').width;
-const COLUMNS = screenWidth >= 360 ? 3 : 2;
-const itemWidth = (screenWidth - 32) / COLUMNS;
-
 export function APODGallery({
   visible,
   history,
@@ -37,52 +32,56 @@ export function APODGallery({
 }: APODGalleryProps) {
   const windowDimensions = useWindowDimensions();
   
-  // Max 2 columns vždy
+  // Max 2 columns always
   const columns = 2;
   
   const itemDimension = useMemo(() => {
     return (windowDimensions.width - 24) / columns - 8;
   }, [windowDimensions.width]);
-  const renderGalleryItem = ({ item, index }: { item: APODHistoryItem; index: number }) => (
-    <TouchableOpacity
-      style={[styles.galleryCard, { width: itemDimension, height: itemDimension }]}
-      onPress={() => {
-        onSelect(item);
-        onClose();
-      }}
-    >
-      {/* Obrázok */}
-      {item.media_type === 'image' && item.url ? (
-        <Image
-          source={{ uri: item.url }}
-          style={styles.cardImage}
-          resizeMode="cover"
-        />
-      ) : (
-        <View style={styles.videoThumbnail}>
-          <Text style={styles.videoIcon}>🎬</Text>
-        </View>
-      )}
 
-      {/* Info pod fotkou */}
-      <View style={styles.cardInfo}>
-        <Text style={styles.cardDate}>{item.date}</Text>
-        <Text style={styles.cardTitle} numberOfLines={2}>
-          {item.title}
-        </Text>
-        {item.copyright && (
-          <Text style={styles.cardAuthor} numberOfLines={1}>
-            © {item.copyright}
-          </Text>
+  const renderGalleryItem = useCallback(
+    ({ item, index }: { item: APODHistoryItem; index: number }) => (
+      <TouchableOpacity
+        style={[styles.galleryCard, { width: itemDimension, height: itemDimension }]}
+        onPress={() => {
+          onSelect(item);
+          onClose();
+        }}
+      >
+        {/* Image */}
+        {item.media_type === 'image' && item.url ? (
+          <Image
+            source={{ uri: item.url }}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={styles.videoThumbnail}>
+            <Text style={styles.videoIcon}>🎬</Text>
+          </View>
         )}
-      </View>
-    </TouchableOpacity>
+
+        {/* Info below photo */}
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardDate}>{item.date}</Text>
+          <Text style={styles.cardTitle} numberOfLines={2}>
+            {item.title}
+          </Text>
+          {item.copyright && (
+            <Text style={styles.cardAuthor} numberOfLines={1}>
+              © {item.copyright}
+            </Text>
+          )}
+        </View>
+      </TouchableOpacity>
+    ),
+    [itemDimension, onSelect, onClose]
   );
 
   return (
     <Modal visible={visible} transparent animationType="slide">
       <SafeAreaView style={styles.container}>
-        {/* Header s nadpisom v strede a X vpravo */}
+        {/* Header with title in center and X on right */}
         <View style={styles.header}>
           <View style={styles.headerSpacer} />
           <Text style={styles.galleryTitle}>Gallery</Text>
@@ -94,7 +93,7 @@ export function APODGallery({
           </TouchableOpacity>
         </View>
 
-        {/* Grid fotiek */}
+        {/* Photo grid */}
         {loading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#00d4ff" />

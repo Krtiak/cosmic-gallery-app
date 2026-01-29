@@ -16,6 +16,8 @@ export interface APODData {
 
 const STORAGE_KEY = 'apod_cache';
 const TODAY_KEY = 'apod_today_date';
+
+/**
  * Fetches the NASA APOD (Astronomy Picture of the Day) for a specific date or today
  */
 export async function fetchAPOD(date?: string): Promise<APODData> {
